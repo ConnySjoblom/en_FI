@@ -4,18 +4,12 @@ escape_char /
 % English Language Locale for Finland
 % Language: en
 % Territory: FI
-% Revision: 1.0
-% Date: 2024-01-02
+% Revision: 1.1
+% Date: 2025-09-14
 % Users: general
 
 LC_IDENTIFICATION
 title      "English locale for Finland"
-source     "RAP"
-address    ""
-contact    ""
-email      ""
-tel        ""
-fax        ""
 language   "English"
 territory  "Finland"
 revision   "1.0"
@@ -35,17 +29,13 @@ category "i18n:2012";LC_ADDRESS
 category "i18n:2012";LC_TELEPHONE
 END LC_IDENTIFICATION
 
-LC_CTYPE
-copy "fi_FI"
-END LC_CTYPE
-
 LC_COLLATE
 copy "fi_FI"
 END LC_COLLATE
 
-LC_MESSAGES
-copy "en_GB"
-END LC_MESSAGES
+LC_CTYPE
+copy "fi_FI"
+END LC_CTYPE
 
 LC_MONETARY
 copy "fi_FI"
@@ -92,6 +82,10 @@ week            7;19971130;4
 first_weekday   2
 END LC_TIME
 
+LC_MESSAGES
+copy "en_US"
+END LC_MESSAGES
+
 LC_PAPER
 copy "fi_FI"
 END LC_PAPER
@@ -105,7 +99,7 @@ copy "fi_FI"
 END LC_MEASUREMENT
 
 LC_NAME
-name_fmt "%d%t%g%t%m%t%f"
+copy "fi_FI"
 END LC_NAME
 
 LC_ADDRESS
