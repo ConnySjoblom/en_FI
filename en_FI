@@ -12,8 +12,8 @@ LC_IDENTIFICATION
 title      "English locale for Finland"
 language   "English"
 territory  "Finland"
-revision   "1.0"
-date       "2024-01-02"
+revision   "1.1"
+date       "2025-09-14"
 
 category "i18n:2012";LC_IDENTIFICATION
 category "i18n:2012";LC_CTYPE
