@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+here=$(cd "$(dirname "$0")" && pwd)
+use_locale_gen=false
 
 # --- Check if the system is Linux ---
 if [[ "$(uname -s)" != "Linux" ]]; then
@@ -7,7 +11,7 @@ if [[ "$(uname -s)" != "Linux" ]]; then
 fi
 
 # --- Check if en_FI.UTF-8 locale already exists ---
-if locale -a | grep -q '^en_FI\.utf8$'; then
+if locale -a | grep '^en_FI\.utf8$' >/dev/null; then
     echo "Locale en_FI.UTF-8 already exists. Aborting."
     exit 0
 fi
@@ -52,6 +56,7 @@ case "$DISTRO_ID" in
             }
             echo "locales package installed successfully."
         fi
+        use_locale_gen=true
         ;;
     arch)
         echo "Detected Arch system ($PRETTY_NAME)"
@@ -74,11 +79,14 @@ case "$DISTRO_ID" in
         ;;
 esac
 
-# Generate the en_FI.UTF-8 locale
 echo "Generating locale en_FI.UTF-8..."
-if sudo localedef --no-archive --inputfile en_FI --charmap=UTF-8 en_FI.UTF-8; then
-    echo "Locale en_FI.UTF-8 generated successfully."
+if $use_locale_gen; then
+    # Register the source and the locale, so locale-gen rebuilds it on glibc upgrades
+    sudo install -m 644 "$here/en_FI" /usr/share/i18n/locales/en_FI
+    grep -qx 'en_FI.UTF-8 UTF-8' /etc/locale.gen \
+        || echo 'en_FI.UTF-8 UTF-8' | sudo tee -a /etc/locale.gen >/dev/null
+    sudo locale-gen
 else
-    echo "Failed to generate locale en_FI.UTF-8."
-    exit 1
+    sudo localedef --no-archive --inputfile "$here/en_FI" --charmap=UTF-8 en_FI.UTF-8
 fi
+echo "Locale en_FI.UTF-8 generated successfully."
